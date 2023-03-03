@@ -1,0 +1,44 @@
+/*
+ * Copyright 2023 Bohdan Brukhovets
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
+
+package components;
+
+import model.Players;
+import model.Sign;
+
+public class Player {
+    Sign sign;
+    Players name;
+    Move move;
+
+    public Player(Sign sign, Players name, Move move) {
+        this.sign = sign;
+        this.name = name;
+        this.move = move;
+    }
+
+    public Sign getSign() {
+        return sign;
+    }
+
+    public String getName() {
+        return name.name();
+    }
+
+    public void doStep(GameTable table, GameWindow gameWindow) {
+        this.move.step(table, this.sign, gameWindow);
+    }
+}
