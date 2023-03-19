@@ -14,14 +14,28 @@
  *    limitations under the License.
  */
 
-package model;
+package root.components;
 
-public enum Players {
+import root.model.Cell;
+import root.model.Sign;
 
-    User,
-    Computer;
+public class UserMove implements Move {
 
-    public String getPlayer() {
-        return this.name();
+    //private final  GameWindow gameWindow;
+
+    public UserMove() {
+
+    }
+
+    public final void step(GameTable gameTable, Sign sign, GameWindow gameWindow) {
+        while (true) {
+            Cell cell = gameWindow.getUserInput();
+            if (gameTable.isEmpty(cell)) {
+                gameTable.setSign(cell, sign);
+                return;
+            } else gameWindow.printErrorMessage("model.Cell is not empty!");
+        }
+
+
     }
 }

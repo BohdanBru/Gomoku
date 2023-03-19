@@ -14,34 +14,19 @@
  *    limitations under the License.
  */
 
-package model;
+package root.model;
 
-public class Cell {
-
-
-    private final int row;
-    public final int col;
-
-    public Cell(int row, int col) {
-        this.row = row;
-        this.col = col;
-    }
-
-    public int getRow() {
-        return row;
-
-    }
-
-    public int getCol() {
-        return col;
-    }
-
+public enum Sign {
+    X,
+    O,
+    EMPTY;
 
     @Override
     public String toString() {
-        return "model.Cell{" +
-                "row=" + row +
-                ", cal=" + col +
-                '}';
+        if (this == EMPTY) {
+            return " ";
+        } else
+            return name();
     }
+
 }

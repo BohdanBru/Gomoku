@@ -14,11 +14,11 @@
  *    limitations under the License.
  */
 
-package components;
+package root.components;
 
 
-import model.Cell;
-import model.Sign;
+import root.model.Cell;
+import root.model.Sign;
 
 import java.util.Arrays;
 
@@ -39,15 +39,12 @@ public class GameTable {
     }
 
     public boolean isCellInTable(Cell cell) {
-        if (cell.getCol() <= 14 &&
+        return cell.getCol() <= 14 &&
                 cell.getCol() >= 0 &&
                 cell.getRow() <= 14 &&
-                cell.getRow() >= 0) {
-
-            return isEmpty(cell);
-        }
-        return false;
+                cell.getRow() >= 0;
     }
+
 
     public boolean isEmpty(Cell cell) {
         return gameTable[cell.getRow()][cell.getCol()] == Sign.EMPTY;

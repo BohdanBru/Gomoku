@@ -14,10 +14,10 @@
  *    limitations under the License.
  */
 
-package components;
+package root.components;
 
-import model.Cell;
-import model.Sign;
+import root.model.Cell;
+import root.model.Sign;
 
 import java.util.Random;
 
@@ -35,16 +35,19 @@ public class ComputerMove implements Move {
     }
 
     public final void step(GameTable gameTable, Sign sign, GameWindow gameWindow) {
-        int x;
-        int y;
-
 
         while (true) {
-            if (tryToInterrupt(gameTable, sign, gameTable)) {
+            try {
+                if (tryToInterrupt(gameTable, sign)) {
+                    return;
+                }
+            } catch (NullPointerException e) {
+
+            }
+            if (stepByRandom(gameTable, sign)) {
                 return;
-            } else if (stepByRandom(gameTable, sign, gameTable)) {
-                return;
-            } else if (nextStep(gameTable, sign, gameWindow)) {
+            }
+            if (nextStep(gameTable, sign, gameWindow)) {
                 return;
 
 
@@ -54,7 +57,7 @@ public class ComputerMove implements Move {
 
     }
 
-    private boolean stepByRandom(GameTable gameTable, Sign sign, GameTable gameTable1) {
+    private boolean stepByRandom(GameTable gameTable, Sign sign) {
 
         if (count == 0) {
             while (true) {
@@ -74,7 +77,7 @@ public class ComputerMove implements Move {
         return false;
     }
 
-    private boolean tryToInterrupt(GameTable gameTable, Sign sign, GameTable gameTable1) {
+    private boolean tryToInterrupt(GameTable gameTable, Sign sign) {
         int[] array = new int[30];
         Cell[] cell = new Cell[30];
         for (int i = 0; i < 15; i++) {
@@ -113,17 +116,20 @@ public class ComputerMove implements Move {
         if (index < 15) {
             Cell setCell = new Cell(cell[index].getRow(), cell[index].getCol() + 1);
             if (gameTable.isCellInTable(setCell)) {
-                gameTable.setSign(setCell, sign);
-                return true;
+                if (gameTable.isEmpty(setCell)) {
+                    gameTable.setSign(setCell, sign);
+                    return true;
+                }
             }
 
         }
         if (index > 15) {
             Cell setCell = new Cell(cell[index].getRow() + 1, cell[index].getCol());
             if (gameTable.isCellInTable(setCell)) {
-                gameTable.setSign(setCell, sign);
-                return true;
-
+                if (gameTable.isEmpty(setCell)) {
+                    gameTable.setSign(setCell, sign);
+                    return true;
+                }
             }
 
         }
@@ -139,39 +145,47 @@ public class ComputerMove implements Move {
 
         while (first) {
             if (gameTable.isCellInTable(new Cell(row, col + 1))) {
-                gameTable.setSign(new Cell(row, col + 1), sign);
-                lastMove[count++] = new Cell(row, col + 1);
+                if (gameTable.isEmpty(new Cell(row, col + 1))) {
+                    gameTable.setSign(new Cell(row, col + 1), sign);
+                    lastMove[count++] = new Cell(row, col + 1);
 
-                return true;
+                    return true;
+                }
             }
             first = false;
         }
         while (second) {
             if (gameTable.isCellInTable(new Cell(row + 1, col))) {
-                gameTable.setSign(new Cell(row + 1, col), sign);
-                lastMove[count++] = new Cell(row + 1, col);
-                return true;
+                if (gameTable.isEmpty(new Cell(row + 1, col))) {
+                    gameTable.setSign(new Cell(row + 1, col), sign);
+                    lastMove[count++] = new Cell(row + 1, col);
+                    return true;
 
+                }
             }
             second = false;
 
         }
         while (third) {
             if (gameTable.isCellInTable(new Cell(row - 1, col))) {
-                gameTable.setSign(new Cell(row - 1, col), sign);
-                lastMove[count++] = new Cell(row - 1, col);
-                first = second = false;
-                return true;
+                if (gameTable.isEmpty(new Cell(row - 1, col))) {
+                    gameTable.setSign(new Cell(row - 1, col), sign);
+                    lastMove[count++] = new Cell(row - 1, col);
+                    first = second = false;
+                    return true;
+                }
             }
             third = false;
 
         }
         while (fourth) {
             if (gameTable.isCellInTable(new Cell(row, col - 1))) {
-                gameTable.setSign(new Cell(row, col - 1), sign);
-                lastMove[count++] = new Cell(row, col - 1);
-                first = second = false;
-                return true;
+                if (gameTable.isEmpty(new Cell(row, col - 1))) {
+                    gameTable.setSign(new Cell(row, col - 1), sign);
+                    lastMove[count++] = new Cell(row, col - 1);
+                    first = second = false;
+                    return true;
+                }
             }
             fourth = false;
 

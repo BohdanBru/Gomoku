@@ -14,7 +14,9 @@
  *    limitations under the License.
  */
 
-package components;
+package root.components;
+
+import root.model.Player;
 
 public class Game {
     //private final Move move;
@@ -54,7 +56,7 @@ public class Game {
                 gameWindow.printTable(gameTable);
                 if (count >= 8) {
                     if (verifier.isWin(gameTable, player)) {
-                        gameWindow.printInfoMessage(player.getName() + " Win");
+                        gameWindow.printInfoMessage(player.getName() + ", who play " + player.getSign() + " Win");
                         gameWindow.gameOver();
                         return;
                     }

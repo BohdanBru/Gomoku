@@ -14,19 +14,13 @@
  *    limitations under the License.
  */
 
-import components.*;
-import model.Players;
-import model.Sign;
+package root.components;
 
-public class Launch {
-    public static void main(String[] args) {
-        Player player1 = new Player(Sign.X, Players.User, new UserMove());
-        Player player2 = new Player(Sign.O, Players.Computer, new ComputerMove());
-        Game game = new Game(
-                player1,
-                player2,
-                new Verifier());
-        game.game();
+import root.model.Sign;
 
-    }
+public interface Move {
+
+
+    void step(GameTable gameTable, Sign sign, GameWindow gameWindow);
+
 }

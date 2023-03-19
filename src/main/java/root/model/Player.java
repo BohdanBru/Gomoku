@@ -14,13 +14,32 @@
  *    limitations under the License.
  */
 
-package components;
+package root.model;
 
-import model.Sign;
+import root.components.GameTable;
+import root.components.GameWindow;
+import root.components.Move;
 
-public interface Move {
+public class Player {
+    Sign sign;
+    Players name;
+    Move move;
 
+    public Player(Sign sign, Players name, Move move) {
+        this.sign = sign;
+        this.name = name;
+        this.move = move;
+    }
 
-    void step(GameTable gameTable, Sign sign, GameWindow gameWindow);
+    public Sign getSign() {
+        return sign;
+    }
 
+    public String getName() {
+        return name.name();
+    }
+
+    public void doStep(GameTable table, GameWindow gameWindow) {
+        this.move.step(table, this.sign, gameWindow);
+    }
 }

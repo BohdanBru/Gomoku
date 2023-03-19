@@ -14,31 +14,40 @@
  *    limitations under the License.
  */
 
-package components;
+package root.model;
 
-import model.Players;
-import model.Sign;
+public class Cell {
 
-public class Player {
-    Sign sign;
-    Players name;
-    Move move;
 
-    public Player(Sign sign, Players name, Move move) {
-        this.sign = sign;
-        this.name = name;
-        this.move = move;
+    private final int row;
+    public final int col;
+
+    public Cell(int row, int col) {
+        this.row = row;
+        this.col = col;
     }
 
-    public Sign getSign() {
-        return sign;
+    public Cell(Object i, Object j) {
+        this.row = (int) i;
+        this.col = (int) j;
     }
 
-    public String getName() {
-        return name.name();
+
+    public int getRow() {
+        return row;
+
     }
 
-    public void doStep(GameTable table, GameWindow gameWindow) {
-        this.move.step(table, this.sign, gameWindow);
+    public int getCol() {
+        return col;
+    }
+
+
+    @Override
+    public String toString() {
+        return "model.Cell{" +
+                "row=" + row +
+                ", cal=" + col +
+                '}';
     }
 }

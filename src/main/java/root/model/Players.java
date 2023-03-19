@@ -14,19 +14,14 @@
  *    limitations under the License.
  */
 
-package model;
+package root.model;
 
-public enum Sign {
-    X,
-    O,
-    EMPTY;
+public enum Players {
 
-    @Override
-    public String toString() {
-        if (this == EMPTY) {
-            return " ";
-        } else
-            return name();
+    User,
+    Computer;
+
+    public String getPlayer() {
+        return this.name();
     }
-
 }

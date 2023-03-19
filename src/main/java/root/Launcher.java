@@ -14,28 +14,24 @@
  *    limitations under the License.
  */
 
-package components;
+package root;
 
-import model.Cell;
-import model.Sign;
+import root.components.Game;
+import root.components.Verifier;
+import root.config.CommandLineArgumentParser;
+import root.model.Player;
 
-public class UserMove implements Move {
+public class Launcher {
+    public static void main(String[] args) {
+        CommandLineArgumentParser config = new CommandLineArgumentParser(args);
 
-    //private final  GameWindow gameWindow;
-
-    public UserMove() {
-
-    }
-
-    public final void step(GameTable gameTable, Sign sign, GameWindow gameWindow) {
-        while (true) {
-            Cell cell = gameWindow.getUserInput();
-            if (gameTable.isEmpty(cell)) {
-                gameTable.setSign(cell, sign);
-                return;
-            } else gameWindow.printErrorMessage("model.Cell is not empty!");
-        }
-
+        Player player1 = config.parser().getPlayer();
+        Player player2 = config.parser().getPlayer1();
+        Game game = new Game(
+                player1,
+                player2,
+                new Verifier());
+        game.game();
 
     }
 }

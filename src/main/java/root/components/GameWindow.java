@@ -14,9 +14,9 @@
  *    limitations under the License.
  */
 
-package components;
+package root.components;
 
-import model.Cell;
+import root.model.Cell;
 
 import javax.swing.*;
 import java.awt.*;
