@@ -31,10 +31,9 @@ if not defined JAVA_CMD (
     set RETURN_CODE=1
 ) else (
     @rem Run tic-tac-toe game:
-    %JAVA_CMD% -jar ${project.build.finalName}-release.jar %*
+    %JAVA_CMD% -jar ${project.build.finalName}.jar %*
     set RETURN_CODE=0
 )
 @rem -------------------------------------------------------------------------------------------------------------------
 exit /b %RETURN_CODE%
 pause
-@rem C:\Users\User\IdeaProjects\tic-tac-toe-maven\out\tic-tac-toe.jar

@@ -38,186 +38,34 @@ public class Verifier {
     }
 
     private boolean checkSecondDiagonalRightHalf(GameTable gameTable, Player player) {
-        int count = 0;
-        for (int j = 0; j < 15; j++) {
-            for (int k = 0; k < 15; k++) {
-                Cell c = new Cell(j + k, 14 - k);
-                if (gameTable.isCellInTable(c)) {
-                    if (gameTable.getSign(c) == player.getSign()) {
-                        count++;
-                        if (count >= 5) return true;
-                    } else count = 0;
 
-                } else break;
-            }
-
-
-        }
-        return false;
+        return checkByLambda(gameTable, player, (k, j) -> new Cell(j + k, 14 - k));
     }
 
 
     private boolean checkSecondDiagonalLeftHalf(GameTable gameTable, Player player) {
-        int count = 0;
-        for (int j = 0; j < 15; j++) {
-            for (int k = 0; k < 15; k++) {
-                Cell c = new Cell(k, 14 - k - j);
-                if (gameTable.isCellInTable(c)) {
-                    if (gameTable.getSign(c) == player.getSign()) {
-                        count++;
-                        if (count >= 5) return true;
-                    } else count = 0;
-
-                } else break;
-            }
-
-
-        }
-        return false;
+        return checkByLambda(gameTable, player, (k, j) -> new Cell(k, 14 - k - j));
     }
 
     private boolean checkMainDiagonalRightHalf(GameTable gameTable, Player player) {
-        int count = 0;
-        for (int j = 0; j < 15; j++) {
-            for (int k = 0; k < 15; k++) {
-                Cell c = new Cell(k, j + k);
-                if (gameTable.isCellInTable(c)) {
-                    if (gameTable.getSign(c) == player.getSign()) {
-                        count++;
-                        if (count >= 5) return true;
-                    } else count = 0;
 
-                } else break;
-            }
-
-
-        }
-        return false;
+        return checkByLambda(gameTable, player, (k, j) -> new Cell(k, j + k));
     }
 
     private boolean checkMainDiagonalLeftHalf(GameTable gameTable, Player player) {
-        int count = 0;
-        for (int j = 0; j < 15; j++) {
-            for (int k = 0; k < 15; k++) {
-                Cell c = new Cell((15 - j) + k, k);
-                if (gameTable.isCellInTable(c)) {
-                    if (gameTable.getSign(c) == player.getSign()) {
-                        count++;
-                        if (count >= 5) return true;
-                    } else count = 0;
 
-                } else break;
-            }
-
-
-        }
-        return false;
+        return checkByLambda(gameTable, player, (k, j) -> new Cell((15 - j) + k, k));
     }
 
-    /*    Cell cellDiagonal = new Cell(i, i);
-        if (gameTable.getSign(cellDiagonal) == player.getSign()) {
-            countDig++;
-
-        } else countDig = 0;
-        if (countDig >= 5) {
-            return true;
-        }
-        return false;
-    }
-
-
-    countDig =0;
-
-        for(
-    int i = 1;
-    i< 15;i++)
-
-    {
-        for (int j = 0; j < 15; j++) {
-
-
-            Cell cellDig = new Cell(j, i + j);
-            if (gameTable.isCellInTable(cellDig)) {
-                if (gameTable.getSign(cellDig) == player.getSign()) {
-                    countDig++;
-                } else countDig = 0;
-            }
-            Cell cellDigBack = new Cell(i + j, j);
-            if (gameTable.isCellInTable(cellDigBack)) {
-                if (gameTable.getSign(cellDigBack) == player.getSign()) {
-                    countDig1++;
-                } else {
-                    countDig1 = 0;
-                }
-            }
-            if (countDig >= 5 || countDig1 >= 5) {
-                return true;
-            }
-
-        }
-
-    }
-
-    countDig =0;
-        for(
-    int i = 0;
-    i< 15;i++)
-
-    {
-        for (int j = 0; j < 15; j++) {
-
-
-            Cell cellDig = new Cell(i + j, 14 - j);
-            if (gameTable.isCellInTable(cellDig)) {
-                if (gameTable.getSign(cellDig) == player.getSign()) {
-                    countDig++;
-                } else countDig = 0;
-            } else break;
-            Cell cellDigBack = new Cell(j, 14 - j);
-            if (gameTable.isCellInTable(cellDigBack)) {
-                if (gameTable.getSign(cellDigBack) == player.getSign()) {
-                    countDig1++;
-                } else {
-                    countDig = 0;
-                }
-            }
-            if (countDig >= 5 || countDig1 >= 5) {
-                return true;
-            }
-
-        }
-
-    }
-
-        return false;
-}*/
 
     private boolean checkRowAndCol(GameTable gameTable, Player player) {
-        int countRow = 0;
-        int countCol = 0;
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
-                Cell cellRow = new Cell(i, j);
-                if (gameTable.getSign(cellRow) == player.getSign()) {
-                    countRow++;
-                    if (countRow >= 5) {
-                        return true;
-                    }
-                } else {
-                    countRow = 0;
-                }
-                Cell cellCol = new Cell(j, i);
-                if (gameTable.getSign(cellCol) == player.getSign()) {
-                    countCol++;
-                    if (countCol >= 5) {
-                        return true;
-                    }
-                } else {
-                    countCol = 0;
-                }
-            }
-        }
-        return false;
+
+        if (checkByLambda(gameTable, player, Cell::new)) {
+            return true;
+        } else if (checkByLambda(gameTable, player, (k, j) -> new Cell(j, k))) {
+            return true;
+        } else
+            return false;
 
     }
 
@@ -236,5 +84,29 @@ public class Verifier {
         return true;
     }
 
+    private boolean checkByLambda(GameTable gameTable,
+                                  Player player,
+                                  Lumbda lumbda) {
+        int count = 0;
+        for (int j = 0; j < 15; j++) {
+            for (int k = 0; k < 15; k++) {
+                Cell c = lumbda.convertor(k, j);
+                if (gameTable.isCellInTable(c)) {
+                    if (gameTable.getSign(c) == player.getSign()) {
+                        count++;
+                        if (count >= 5) return true;
+                    } else count = 0;
 
+                } else break;
+            }
+
+
+        }
+        return false;
+    }
+
+    @FunctionalInterface
+    private interface Lumbda {
+        Cell convertor(int k, int j);
+    }
 }

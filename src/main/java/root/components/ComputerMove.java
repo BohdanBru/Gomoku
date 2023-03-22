@@ -47,7 +47,7 @@ public class ComputerMove implements Move {
             if (stepByRandom(gameTable, sign)) {
                 return;
             }
-            if (nextStep(gameTable, sign, gameWindow)) {
+            if (nextStep(gameTable, sign)) {
                 return;
 
 
@@ -137,7 +137,7 @@ public class ComputerMove implements Move {
     }
 
 
-    private boolean nextStep(GameTable gameTable, Sign sign, GameWindow gameWindow) {
+    private boolean nextStep(GameTable gameTable, Sign sign) {
 
         int row = lastMove[count - 1].getRow();
         int col = lastMove[count - 1].getCol();

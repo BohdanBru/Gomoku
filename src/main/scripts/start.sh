@@ -34,7 +34,7 @@ if [ -z ${JAVA_CMD+x} ]; then
 
     #Run tic-tac-toe game:
     # shellcheck disable=SC2068
-    $JAVA_CMD -jar ${project.build.finalName}-release.jar "$@"
+    $JAVA_CMD -jar ${project.build.finalName}.jar "$@"
     RETURN_CODE=0
     fi
     #----------------------------------------------------------------------------------

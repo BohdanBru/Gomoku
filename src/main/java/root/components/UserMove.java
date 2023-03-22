@@ -33,7 +33,7 @@ public class UserMove implements Move {
             if (gameTable.isEmpty(cell)) {
                 gameTable.setSign(cell, sign);
                 return;
-            } else gameWindow.printErrorMessage("model.Cell is not empty!");
+            } else gameWindow.printErrorMessage("This cell is not empty!");
         }
 
 

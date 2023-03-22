@@ -33,7 +33,7 @@
 
     <groupId>BohdanBru</groupId>
     <artifactId>Gomoku</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>2.0-SNAPSHOT</version>
     <name>Gomoku</name>
     <description>The game Gomoku - simple game using GUI mode</description>
     <developers>
@@ -156,7 +156,7 @@
                         <proguardVersion>${proguard.version}</proguardVersion>
                         <obfuscate>true</obfuscate>
                         <injar>${project.build.finalName}.jar</injar>
-                        <outjar>${project.build.finalName}-release.jar</outjar>
+                        <outjar>${project.build.finalName}.jar</outjar>
                         <proguardInclude>proguard-rules.conf</proguardInclude>
                         <libs>
                             <lib>${java.home}/jmods/java.base.jmod</lib>
@@ -190,6 +190,7 @@
                                 <goal>copy-dependencies</goal>
                             </goals>
                             <configuration>
+                                <includeScope>compile</includeScope> <!-- Attention  -->
                                 <outputDirectory>${project.build.directory}/lib-dependency</outputDirectory>
                             </configuration>
                         </execution>
@@ -198,28 +199,6 @@
 
             </plugins>
         </pluginManagement>
-        <plugins>
-            <plugin>
-
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>${maven-dependency-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <includeScope>compile</includeScope> <!-- Attention  -->
-                            <outputDirectory>${project.build.directory}/lib-dependency</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-        </plugins>
 
 
     </build>

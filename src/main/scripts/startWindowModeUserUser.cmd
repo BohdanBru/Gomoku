@@ -6,4 +6,4 @@
 @ echo off
 setlocal
 @rem---------------------------------------------------------------------------------------
-start.cmd gui user user
+start.cmd  user user
